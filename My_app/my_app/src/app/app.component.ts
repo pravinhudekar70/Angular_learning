@@ -5,18 +5,26 @@ import { SignupComponent } from './signup/signup.component';
 import { HeaderComponent } from "./header/header.component";
 import { UserComponent } from "./user/user.component";
 import { DUMMY_USERS } from './dummy-users';
+import { TaksComponent } from "./taks/taks.component";
 
 @Component({
   selector: 'app-root',
-  imports: [ HeaderComponent, UserComponent],
+  imports: [HeaderComponent, UserComponent, TaksComponent, ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'my_app';
   users = DUMMY_USERS;
-  onSelectUser(event: { id: string }) {
-    console.log('Selected user: ' + event.id);
+  selectedUserId = 'u1';
+
+  get selectedUser() {
+    return this.users.find(user => user.id === this.selectedUserId);
+  }
+
+  onSelectUser(id:string) {
+   this.selectedUserId =id;
+   console.log('Selected user:', this.selectedUser);
   }
   
 
