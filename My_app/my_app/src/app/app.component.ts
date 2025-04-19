@@ -4,21 +4,20 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { HeaderComponent } from "./header/header.component";
 import { UserComponent } from "./user/user.component";
+import { DUMMY_USERS } from './dummy-users';
 
 @Component({
   selector: 'app-root',
-  imports: [LoginComponent, SignupComponent, HeaderComponent, UserComponent],
+  imports: [ HeaderComponent, UserComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'my_app';
+  users = DUMMY_USERS;
+  onSelectUser(event: { id: string }) {
+    console.log('Selected user: ' + event.id);
+  }
+  
 
-  handleOnClick(){
-    alert("button clicked");
-    this.fub2();
-  }
-  fub2(){
-    console.log("hihi");
-  }
 }
