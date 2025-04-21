@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { DUMMY_USERS } from '../dummy-users';
+
 
 @Component({
   selector: 'app-user',
@@ -14,6 +14,7 @@ export class UserComponent {
     name: string;
     avatar: string;
   };
+  @Input({required:true}) selected!:boolean;
 
   @Output() select = new EventEmitter();
 
