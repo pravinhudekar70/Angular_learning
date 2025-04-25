@@ -1,23 +1,21 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { CardComponent } from "../shared/card/card.component";
+import { CommonModule } from '@angular/common';
+import { TasksService } from '../tasks/task-service/tasks.service';
+import { type Task } from './task.model';
 
-interface Task {
-  id: string;
-  userId: string;
-  title: string;
-  summary: string;
-  duedate: string;
-}
 @Component({
   selector: 'app-task',
-  imports: [],
+  imports: [CardComponent, CommonModule],
   templateUrl: './task.component.html',
   styleUrl: './task.component.css',
 })
 export class TaskComponent {
+  private tasksService = inject(TasksService);
   @Input({ required: true }) task!: Task;
-  @Output () complete = new EventEmitter();
+ 
 
   onCompleteTask() {
-    this.complete.emit(this.task.id);
+    this.tasksService.removeTask(this.task.id);
   }
 }
