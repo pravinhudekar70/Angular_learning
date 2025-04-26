@@ -1,13 +1,11 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { TasksService } from '../task-service/tasks.service';
 
 @Component({
   selector: 'app-new-task',
-  imports: [CommonModule, FormsModule],
   templateUrl: './new-task.component.html',
   styleUrl: './new-task.component.css',
+  standalone: false,
 })
 export class NewTaskComponent {
   @Input({ required: true }) userId!: string;

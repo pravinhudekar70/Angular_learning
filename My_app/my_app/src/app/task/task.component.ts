@@ -1,12 +1,10 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import { CardComponent } from "../shared/card/card.component";
-import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, inject, Input } from '@angular/core';
 import { TasksService } from '../tasks/task-service/tasks.service';
 import { type Task } from './task.model';
 
 @Component({
   selector: 'app-task',
-  imports: [CardComponent, CommonModule],
+  standalone: false,
   templateUrl: './task.component.html',
   styleUrl: './task.component.css',
 })
