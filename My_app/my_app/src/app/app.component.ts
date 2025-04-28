@@ -1,13 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
-import { HeaderComponent } from "./header/header.component";
-import { UserComponent } from "./user/user.component";
 import { DUMMY_USERS } from './dummy-users';
-import { TasksComponent } from "./tasks/tasks.component";
-import { CommonModule } from '@angular/common';
-
 
 @Component({
   selector: 'app-root',
