@@ -1,20 +1,31 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
-import { UserInputComponent } from "./user-input/user-input.component";
+import { UserInputComponent } from './user-input/user-input.component';
+import type { InvestmentInput } from './investment-input.model';
+import { InvestmentResultComponent } from "./investment-result/investment-result.component";
 
 @Component({
   selector: 'app-root',
-  imports: [HeaderComponent, UserInputComponent],
+  imports: [HeaderComponent, UserInputComponent, InvestmentResultComponent],
   standalone: true,
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
   title = 'Investment-tracker';
+  resultsData?:{
+    year: number;
+    interest: number;
+    valueEndOfYear: number;
+    annualInvestment: number;
+    totalInterest: number;
+    totalAmountInvested: number;
+  }[];
 
-  onCalculateInvestmentResults(data: { initialInvestment: number, duration: number, expectedReturn: number, annualInvestment: number }) {
+  onCalculateInvestmentResults(data: InvestmentInput) {
     const annualData = [];
-    const {initialInvestment,annualInvestment,duration,expectedReturn}=data;
+    const { initialInvestment, annualInvestment, duration, expectedReturn } =
+      data;
     let investmentValue = initialInvestment;
 
     for (let i = 0; i < duration; i++) {
@@ -33,6 +44,6 @@ export class AppComponent {
       });
     }
 
-    console.log( annualData);
+    this .resultsData = annualData;
   }
 }
