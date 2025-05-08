@@ -221,3 +221,14 @@ button:hover {
 button:hover .icon {
   transform: translateX(4px);
 }
+
+.main-content{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem 0;
+  padding: 2rem;
+  
+}
