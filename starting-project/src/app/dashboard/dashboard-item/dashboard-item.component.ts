@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard-item',
@@ -8,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrl: './dashboard-item.component.css'
 })
 export class DashboardItemComponent {
+
+  @Input({required: true}) image!:{ sec:string, alt:string };
+  @Input({required: true}) title!:string; 
 
 }
