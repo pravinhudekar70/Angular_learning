@@ -1,15 +1,15 @@
-<form>
+<form (ngSubmit)="onSubmit()" >
   
    <app-control label="Title">
     <input type="text" id="title" placeholder="Enter title" />
    </app-control>
   
    <app-control label="Request">
-    <textarea id="request" placeholder="enter info" rows="3"></textarea>
+    <textarea id="request" placeholder="Enter info" rows="3"></textarea>
    </app-control>
   
   <p>
-    <button appButton>
+    <button type="submit"  appButton>
       Submit
       <span class="icon"> &#10148; </span>
     </button>
