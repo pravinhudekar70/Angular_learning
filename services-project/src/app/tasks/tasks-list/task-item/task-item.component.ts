@@ -1,7 +1,8 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, inject, Inject, input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { Task, TaskStatus } from '../../task.model';
+import { TasksService } from '../../tasks.service';
 
 @Component({
   selector: 'app-task-item',
@@ -24,6 +25,7 @@ export class TaskItemComponent {
         return 'Open';
     }
   });
+  private tasksService = inject(TasksService);
 
   onChangeTaskStatus(taskId: string, status: string) {
     let newStatus: TaskStatus = 'OPEN';
@@ -41,5 +43,7 @@ export class TaskItemComponent {
       default:
         break;
     }
+    this.tasksService.updateTaskStatus(taskId, newStatus);
+    console.log('Task status updated:', taskId, newStatus);
   }
 }
