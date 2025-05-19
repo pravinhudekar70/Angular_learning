@@ -24,17 +24,17 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const subscription = interval(1000)
-      .pipe(map((val) => val * 2))
-      .subscribe({
-        next: (val) => {
-          console.log(val);
-        },
-      });
-    this.destroyRef.onDestroy(() => {
-      subscription.unsubscribe();
-      console.log('unsubscribed');
-    });
+    // const subscription = interval(1000)
+    //   .pipe(map((val) => val * 2))
+    //   .subscribe({
+    //     next: (val) => {
+    //       console.log(val);
+    //     },
+    //   });
+    // this.destroyRef.onDestroy(() => {
+    //   subscription.unsubscribe();
+    //   console.log('unsubscribed');
+    // });
   }
   onClick() {
     this.clickCount.update((count) => count + 1);
