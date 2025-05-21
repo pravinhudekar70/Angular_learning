@@ -19,6 +19,7 @@ app.use((req, res, next) => {
 });
 
 app.get("/places", async (req, res) => {
+  // res.status(500).json("Error occurred while fetching places");
   await new Promise((resolve) => setTimeout(resolve, 3000));
 
   const fileContent = await fs.readFile("./data/places.json");
