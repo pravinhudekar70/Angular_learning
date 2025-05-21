@@ -4,6 +4,7 @@ import { Place } from '../place.model';
 import { PlacesComponent } from '../places.component';
 import { PlacesContainerComponent } from '../places-container/places-container.component';
 import { HttpClient } from '@angular/common/http';
+import { PlacesService } from '../places.service';
 
 @Component({
   selector: 'app-available-places',
@@ -14,25 +15,24 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AvailablePlacesComponent implements OnInit {
   places = signal<Place[] | undefined>(undefined);
-  private httpClient = inject(HttpClient);
+  private placesService = inject(PlacesService);
   private destroyRef = inject(DestroyRef);
   isFetching = signal(false);
   error = signal<string | null>(null);
 
   ngOnInit(): void {
     this.isFetching.set(true);
-    const subscription = this.httpClient
-      .get<{places:Place[]}>('http://localhost:3000/places')
+    const subscription = this.placesService.loadAvailablePlaces()
       .subscribe({
-        next: (respData) => {
-          this.places.set(respData.places);
+        next: (places) => {
+          this.places.set(places);
         },
         complete: () => {
           this.isFetching.set(false);
         },
-        error:(error) => {
+        error:(error:Error) => {
           console.log(error);
-          this.error.set("Something went wrong fetching the places. please try again later.");
+          this.error.set(error.message);
         }
       });
     this.destroyRef.onDestroy(() => {
@@ -40,9 +40,7 @@ export class AvailablePlacesComponent implements OnInit {
     });
   }
   onSelectPlace(selectedPlace: Place){
-    this.httpClient.put('http://localhost:3000/user-places', {
-      placeId: selectedPlace.id,
-    }).subscribe({
+   const subscription = this.placesService.addPlaceToUserPlaces(selectedPlace).subscribe({
       next: (respData) => {
         console.log(respData);
       },
@@ -50,7 +48,12 @@ export class AvailablePlacesComponent implements OnInit {
         console.log(error);
         this.error.set("Something went wrong selecting the place. please try again later.");
       },
-      complete: () => {}
+      complete: () => {
+        console.log ('Place added to user places');
+      }
     });
+     this.destroyRef.onDestroy(() => {
+        subscription.unsubscribe();
+      } );  
   }
 }
