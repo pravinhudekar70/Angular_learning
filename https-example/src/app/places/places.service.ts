@@ -28,13 +28,22 @@ export class PlacesService {
   }
 
   addPlaceToUserPlaces(place: Place) {
-    this.userPlaces.update((prevplaces) => [...prevplaces, place]);
+    const prevplaces = this.userPlaces();
+    if (!prevplaces.find((p) => p.id === place.id)) {
+      this.userPlaces.update((prevplaces) => [...prevplaces, place]);
+    }
+
     return this.httpClient.put('http://localhost:3000/user-places', {
       placeId: place.id,
     });
   }
 
-  removeUserPlace(place: Place) {}
+  removeUserPlace(place: Place) {
+    this.userPlaces.update((prevplaces) =>
+      prevplaces.filter((p) => p.id !== place.id)
+    );
+    return this.httpClient.delete('http://localhost:3000/user-places/'+place.id)
+  }
 
   private fetchPlaces(url: string, errorMessage: string) {
     return this.httpClient.get<{ places: Place[] }>(url).pipe(

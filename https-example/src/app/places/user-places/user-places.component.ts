@@ -33,4 +33,17 @@ export class UserPlacesComponent implements OnInit {
       subscription.unsubscribe();
     });
   }
+  onSelectPlace(place: Place) {
+    this.placesService.removeUserPlace(place).subscribe({
+      next: (respData) => {
+        console.log(respData);
+      },
+      error: (error) => { 
+        console.log(error);
+        this.error.set(
+          'Something went wrong selecting the place. please try again later.'
+        );
+      }
+    });
+  }
 }
