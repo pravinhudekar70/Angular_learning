@@ -8,3 +8,12 @@ ul {
   max-height: 50vh;
   overflow: auto;
 }
+
+a {
+  text-decoration: none;
+  color: #a672e6;
+}
+a:hover,
+a:active {
+  color: #6e4c97;
+}
